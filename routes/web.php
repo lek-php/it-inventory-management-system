@@ -8,17 +8,17 @@ use App\Models\User;
 // });
 
 Route::get('/test', function () {
-    return view('test', [
+    return view('pages.test', [
         'users' => User::all(),
     ]);
 });
 
 Route::get('/', function () {
-    return view('index');
+    return view('pages.index');
 });
 
 Route::get('/assets', function () {
-    return view('assets');
+    return view('pages/assets');
 });
 
 Route::get('/login', function () {

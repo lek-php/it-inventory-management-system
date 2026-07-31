@@ -1,71 +1,9 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atlas IT Inventory</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-      theme: {
-        extend: {
-          colors: { ink: '#17212B', mist: '#F4F6F8', signal: '#1F9D83', amber: '#D89A20' },
-          boxShadow: { soft: '0 10px 30px rgba(23,33,43,.08)' }
-        }
-      }
-    }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <style>
-        body {
-            font-family: Manrope, sans-serif;
-        }
-
-        .mono {
-            font-family: 'DM Mono', monospace;
-        }
-    </style>
-</head>
+@include('components.partials.header')
 
 <body class="min-h-screen bg-mist text-ink">
     <div class="flex min-h-screen">
-        <aside class="hidden w-64 shrink-0 border-r border-slate-200 bg-white px-5 py-6 lg:flex lg:flex-col">
-            <a class="flex items-center gap-3" href="#">
-                <span
-                    class="grid h-9 w-9 place-items-center rounded-xl bg-ink text-lg font-extrabold text-white">A</span>
-                <span><span class="block text-sm font-extrabold tracking-tight">ATLAS</span><span
-                        class="block text-[10px] font-semibold tracking-[.18em] text-slate-400">IT
-                        INVENTORY</span></span>
-            </a>
-            <nav class="mt-12 space-y-1 text-sm font-semibold">
-                <x-partials.nav-link href="/" :active="request()->is('/')"><span>▦</span>Overview</x-partials.nav-link>
 
-                <x-partials.nav-link href="/assets" :active="request()->is('assets')"><span>▣</span>Assets
-                </x-partials.nav-link>
-
-                <a class=" flex items-center gap-3 rounded-xl px-3 py-3 text-slate-500 hover:bg-slate-50"
-                    href="#requests"><span>↗</span>Requests <span
-                        class="ml-auto rounded-md bg-amber-100 px-2 py-0.5 text-xs text-amber-700">8</span></a>
-                <a class="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-500 hover:bg-slate-50"
-                    href="#people"><span>◎</span>People</a>
-                <a class="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-500 hover:bg-slate-50"
-                    href="#reports"><span>◫</span>Reports</a>
-            </nav>
-            <div class="mt-auto rounded-2xl bg-ink p-4 text-white">
-                <p class="text-xs font-semibold text-emerald-300">ASSET HEALTH</p>
-                <p class="mt-2 text-3xl font-extrabold">94<span class="text-base text-slate-400">%</span></p>
-                <p class="mt-1 text-xs leading-5 text-slate-400">Your fleet is in great shape this month.</p>
-            </div>
-            <button class="mt-5 flex items-center gap-3 text-left" type="button"><span
-                    class="grid h-9 w-9 place-items-center rounded-full bg-slate-200 text-xs font-bold">JR</span><span
-                    class="text-xs"><b class="block">Jordan Reyes</b><span
-                        class="text-slate-400">Administrator</span></span></button>
-        </aside>
+        @include('components.partials.navbar')
 
         <main class="min-w-0 flex-1 px-5 py-6 sm:px-8 lg:px-10">
             <header class="flex items-center justify-between gap-4">
@@ -203,33 +141,8 @@
             </section>
         </main>
     </div>
-    <div class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/40 p-4" id="modal" role="dialog"
-        aria-modal="true" aria-labelledby="modalTitle">
-        <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-extrabold" id="modalTitle">Add an asset</h2><button
-                    class="text-xl text-slate-400" id="closeModal" aria-label="Close" type="button">×</button>
-            </div>
-            <form class="mt-5 space-y-4" id="assetForm"><label class="block text-sm font-bold">Asset name<input
-                        class="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none focus:border-signal"
-                        required placeholder="e.g. Lenovo ThinkPad X1" /></label><label
-                    class="block text-sm font-bold">Category<select
-                        class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 outline-none focus:border-signal">
-                        <option>Laptop</option>
-                        <option>Monitor</option>
-                        <option>Mobile device</option>
-                        <option>Accessory</option>
-                    </select></label><button class="w-full rounded-xl bg-ink py-3 text-sm font-extrabold text-white"
-                    type="submit">Create asset</button></form>
-        </div>
-    </div>
-    <script>
-        const modal = document.getElementById('modal');
-    document.getElementById('addAsset').addEventListener('click', () => modal.classList.replace('hidden', 'flex'));
-    document.getElementById('closeModal').addEventListener('click', () => modal.classList.replace('flex', 'hidden'));
-    document.getElementById('assetForm').addEventListener('submit', (e) => { e.preventDefault(); modal.classList.replace('flex', 'hidden'); document.getElementById('addAsset').textContent = '✓ Asset created'; setTimeout(() => document.getElementById('addAsset').textContent = '+ Add asset', 1800); });
-    document.getElementById('refresh').addEventListener('click', (e) => { e.currentTarget.textContent = '✓ Updated just now'; setTimeout(() => e.currentTarget.textContent = '↻ Refresh data', 1800); });
-    </script>
+
+    @include('components.partials.forms.add-asset')
 </body>
 
-</html>
+@include('components.partials.footer')
