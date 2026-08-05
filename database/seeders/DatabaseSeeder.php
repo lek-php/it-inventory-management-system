@@ -38,11 +38,20 @@ class DatabaseSeeder extends Seeder
             'employee_id' => 'EMP-21779',
             'department_id' => 1,
             'location_id' => 1,
-            'phone' => '09123456789',
+            'phone' => '0912-345-6789',
             'position' => 'IT Staff',
             'is_active' => 1,
             'is_login_user' => 1,
             'password' => 'password123',
+        ], [
+            'employee_id' => 'EMP-00001',
+            'department_id' => 1,
+            'location_id' => 1,
+            'phone' => '0939-800-3457',
+            'position' => 'IT Officer',
+            'is_active' => 1,
+            'is_login_user' => 1,
+            'password' => 'password321',
         ]);
     }
 }
