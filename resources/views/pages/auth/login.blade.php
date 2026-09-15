@@ -5,19 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign in · Felias</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-                theme: {
-                    extend: {
-                        colors: {
-                            ink: "#17212B",
-                            mist: "#F4F6F8",
-                            signal: "#1F9D83",
-                        },
-                    },
-                },
-            };
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

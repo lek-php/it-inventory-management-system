@@ -1,7 +1,7 @@
 <aside class="hidden w-64 shrink-0 border-r border-slate-200 bg-white px-5 py-6 lg:flex lg:flex-col">
     <a class="flex items-center gap-3" href="#">
-        <span class="grid h-9 w-9 place-items-center rounded-xl bg-ink text-lg font-extrabold text-white">A</span>
-        <span><span class="block text-sm font-extrabold tracking-tight">ATLAS</span><span
+        <span class="grid h-9 w-9 place-items-center rounded-xl bg-ink text-lg font-extrabold text-white">F</span>
+        <span><span class="block text-sm font-extrabold tracking-tight">FELIAS</span><span
                 class="block text-[10px] font-semibold tracking-[.18em] text-slate-400">IT
                 INVENTORY</span></span>
     </a>
