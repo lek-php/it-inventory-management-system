@@ -1,23 +1,31 @@
 <?php
 
-use App\Models\Assets;
+use App\Models\Asset;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 
 // Route::get('/', function () {
 //     return view('index');
 // });
 
-Route::get('/test', function () {
-    return view('pages.test');
+//API Routes
+Route::get('/api/assets/all', function () {
+    return Asset::all();
 });
+
+
+
+
+
 
 Route::get('/', function () {
     return view('pages.index');
 });
 
 Route::get('/assets', function () {
-    return view('pages/assets/index');
+    $byCategoryCount = Asset::select('status')->get()->groupBy('status')->map->count();
+    $AssetsCount = Asset::count();
+
+    return view('pages.assets.index', compact('byCategoryCount', 'AssetsCount'));
 });
 
 Route::get('/login', function () {
@@ -27,9 +35,10 @@ Route::get('/login', function () {
 Route::post('/assets/create', function () {
     //validation...
 
-    Assets::create([
+    Asset::create([
         'asset_name' => request('asset_name'),
         'category' => request('category'),
+        'tag' => request('tag'),
         'manufacturer' => request('manufacturer'),
         'model' => request('model'),
         'serial_number' => request('serial_number'),

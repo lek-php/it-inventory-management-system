@@ -53,5 +53,7 @@ class DatabaseSeeder extends Seeder
             'is_login_user' => 1,
             'password' => 'password321',
         ]);
+
+        $this->call(AssetSeeder::class);
     }
 }

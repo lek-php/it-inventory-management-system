@@ -41,10 +41,18 @@
                         <option>Laptop</option>
                         <option>Desktop</option>
                         <option>Monitor</option>
-                        <option>Mobile device</option>
-                        <option>Accessory</option>
+                        <option>Tablet</option>
+                        <option>Printer</option>
+                        <option>Peripherals</option>
                         <option>Network equipment</option>
                     </select>
+                </label>
+
+                <label class="block text-sm font-bold">
+                    Asset Tag / ID
+                    <input name="tag"
+                        class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
+                        placeholder="e.g. ASB-0001">
                 </label>
 
                 <label class="block text-sm font-bold">
@@ -86,12 +94,13 @@
                     Status
                     <select name="status"
                         class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
-                        <option value="available">Available</option>
-                        <option value="assigned">In use</option>
-                        <option value="in_repair">In repair</option>
-                        <option value="retired">Retired</option>
-                        <option value="for disposal">For disposal</option>
-                        <option value="disposed">Disposed</option>
+                        <option value="Available">Available</option>
+                        <option value="Assigned">In use</option>
+                        <option value="In repair">In repair</option>
+                        <option value="Retired">Retired</option>
+                        <option value="For disposal">For disposal</option>
+                        <option value="For maintenance">For disposal</option>
+                        <option value="Disposed">Disposed</option>
                     </select>
                 </label>
 

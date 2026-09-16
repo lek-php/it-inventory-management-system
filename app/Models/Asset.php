@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class assets extends Model
+class asset extends Model
 {
     /** @use HasFactory<\Database\Factories\AssetsFactory> */
     use HasFactory;

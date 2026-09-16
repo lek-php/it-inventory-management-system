@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('asset_name');
             $table->string('category');
+            $table->string('tag')->unique();
             $table->string('manufacturer');
             $table->string('model');
             $table->string('serial_number')->unique();
             $table->string('vendor')->nullable();
-            $table->enum('status', ['available', 'assigned', 'not good', 'disposed'])->default('available');
+            $table->enum('status', ['Available', 'Assigned', 'In repair', 'For maintenance', 'Not good', 'For disposal', 'Disposed'])->default('Available');
             $table->string('assigned_to')->nullable();
             $table->string('location')->nullable();
             $table->date('purchase_date')->nullable();

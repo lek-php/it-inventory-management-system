@@ -5,7 +5,7 @@
         <p class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">Friday, 24 July</p>
         <div class="mt-2 flex flex-wrap items-end justify-between gap-3">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Good morning, Jordan.</h1>
+                <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Good morning, Felix.</h1>
                 <p class="mt-2 text-sm text-slate-500">Here’s what needs your attention today.</p>
             </div><button class="text-sm font-bold text-signal" id="refresh" type="button">↻ Refresh
                 data</button>
