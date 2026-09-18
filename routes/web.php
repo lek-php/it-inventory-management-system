@@ -34,6 +34,20 @@ Route::get('/login', function () {
 
 Route::post('/assets/create', function () {
     //validation...
+    request()->validate([
+        'asset_name' => 'required',
+        'category' => 'required',
+        'tag' => 'required',
+        'manufacturer' => 'required',
+        'model' => 'required',
+        'serial_number' => 'required',
+        'vendor' => 'required',
+        'status' => 'required',
+        'assigned_to' => 'required',
+        'location' => 'required',
+        'purchase_date' => 'required|date',
+        'warranty_expiration' => 'required|date',
+    ]);
 
     Asset::create([
         'asset_name' => request('asset_name'),
