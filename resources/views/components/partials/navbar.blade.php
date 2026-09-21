@@ -6,16 +6,26 @@
                 INVENTORY</span></span>
     </a>
     <nav class="mt-12 space-y-1 text-sm font-semibold">
-        <x-partials.nav-link href="/" :active="request()->is('/')"><span>▦</span>Overview</x-partials.nav-link>
+        <x-partials.nav-link href="/" :active="request()->is('/')">
+            <span>▦</span>
+            Overview
+        </x-partials.nav-link>
 
-        <x-partials.nav-link href="/assets" :active="request()->is('assets')"><span>▣</span>Assets
+        <x-partials.nav-link href="/assets" :active="request()->is('assets*')">
+            <span>▣</span>
+            Assets
         </x-partials.nav-link>
 
         <a class=" flex items-center gap-3 rounded-xl px-3 py-3 text-slate-500 hover:bg-slate-50"
             href="#requests"><span>↗</span>Requests <span
-                class="ml-auto rounded-md bg-amber-100 px-2 py-0.5 text-xs text-amber-700">8</span></a>
-        <a class="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-500 hover:bg-slate-50"
-            href="#people"><span>◎</span>People</a>
+                class="ml-auto rounded-md bg-amber-100 px-2 py-0.5 text-xs text-amber-700">8</span>
+        </a>
+
+        <x-partials.nav-link href="/users" :active="request()->is('users*')">
+            <span>◎</span>
+            People
+        </x-partials.nav-link>
+
         <a class="flex items-center gap-3 rounded-xl px-3 py-3 text-slate-500 hover:bg-slate-50"
             href="#reports"><span>◫</span>Reports</a>
     </nav>

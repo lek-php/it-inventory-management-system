@@ -1,6 +1,6 @@
 <x-layouts.app>
     <header class="flex items-center justify-between"><a class="text-sm font-bold text-slate-500 hover:text-ink"
-            href="/">← Back to overview</a><span
+            href="/assets">← Back to assets</a><span
             class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">New inventory record</span>
     </header>
 
@@ -31,7 +31,7 @@
                         Asset Name
                         <input name="asset_name"
                             class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="e.g. MacBook Pro 14-inch">
+                            placeholder="e.g. MacBook Pro 14-inch" value="{{ old('asset_name') }}">
                     </label>
 
                     @error('asset_name')
@@ -45,13 +45,17 @@
                         <select name="category"
                             class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
                             <option value="">Choose a category</option>
-                            <option>Laptop</option>
-                            <option>Desktop</option>
-                            <option>Monitor</option>
-                            <option>Tablet</option>
-                            <option>Printer</option>
-                            <option>Peripherals</option>
-                            <option>Network equipment</option>
+                            <option value="Laptop" {{ old('category')==='Laptop' ? 'selected' : '' }}>Laptop</option>
+                            <option value="Desktop" {{ old('category')==='Desktop' ? 'selected' : '' }}>Desktop</option>
+                            <option value="Tablet" {{ old('category')==='Tablet' ? 'selected' : '' }}>Tablet</option>
+                            <option value="Printer" {{ old('category')==='Printer' ? 'selected' : '' }}>Printer</option>
+                            <option value="Peripherals" {{ old('category')==='Peripherals' ? 'selected' : '' }}>
+                                Peripherals
+                            </option>
+                            <option value="Network equipment" {{ old('category')==='Network equipment' ? 'selected' : ''
+                                }}>
+                                Network equipment
+                            </option>
                         </select>
                     </label>
 
@@ -65,7 +69,7 @@
                         Asset Tag / ID
                         <input name="tag"
                             class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="e.g. ASB-0001">
+                            placeholder="e.g. ASB-0001" value="{{ old('tag') }}">
                     </label>
 
                     @error('tag')
@@ -78,7 +82,7 @@
                         Manufacturer
                         <input name="manufacturer"
                             class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="e.g. Apple">
+                            placeholder="e.g. Apple" value="{{ old('manufacturer') }}">
                     </label>
 
                     @error('manufacturer')
@@ -91,7 +95,7 @@
                         Model
                         <input name="model"
                             class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="e.g. M4 Pro">
+                            placeholder="e.g. M4 Pro" value="{{ old('model') }}">
                     </label>
 
                     @error('model')
@@ -104,7 +108,7 @@
                         Serial number
                         <input name="serial_number"
                             class="mono mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="Serial number">
+                            placeholder="Serial number" value="{{ old('serial_number') }}">
                     </label>
 
                     @error('serial_number')
@@ -117,7 +121,7 @@
                         Supplier / vendor
                         <input name="vendor"
                             class="mono mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="e.g AMTI, Computech">
+                            placeholder="e.g AMTI, Computech" value="{{ old('vendor') }}">
                     </label>
 
                     @error('vendor')
@@ -140,13 +144,22 @@
                         Status
                         <select name="status"
                             class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
-                            <option value="Available">Available</option>
-                            <option value="Assigned">In use</option>
-                            <option value="In repair">In repair</option>
-                            <option value="Retired">Retired</option>
-                            <option value="For disposal">For disposal</option>
-                            <option value="For maintenance">For disposal</option>
-                            <option value="Disposed">Disposed</option>
+                            <option value="Available" {{ old('status')==='Available' ? 'selected' : '' }}>
+                                Available
+                            </option>
+                            <option value="Assigned" {{ old('status')==='Assigned' ? 'selected' : '' }}>In use</option>
+                            <option value="In repair" {{ old('status')==='Available' ? 'selected' : '' }}>
+                                In repair
+                            </option>
+                            <option value="Retired" {{ old('status')==='Retired' ? 'selected' : '' }}>Retired</option>
+                            <option value="For disposal" {{ old('status')==='For disposal' ? 'selected' : '' }}>
+                                For disposal
+                            </option>
+                            <option value="For maintenance" {{ old('status')==='For maintenance' ? 'selected' : '' }}>
+                                For maintenance</option>
+                            <option value="Disposed" {{ old('status')==='Disposed' ? 'selected' : '' }}>
+                                Disposed
+                            </option>
                         </select>
                     </label>
 
@@ -158,12 +171,10 @@
                 <div class="space-y-2">
                     <label class="block text-sm font-bold">
                         Assigned to
-                        <select name="assigned_to"
+                        <select name="assigned_to" id="users"
+                            data-selected="{{ old('assigned_to', $asset->assigned_to ?? '') }}"
                             class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
-                            <option>Unassigned</option>
-                            <option>Maya Chen</option>
-                            <option>Noah Williams</option>
-                            <option>Jordan Reyes</option>
+                            <option value="">Unassigned</option>
                         </select>
                     </label>
 
@@ -175,12 +186,45 @@
                 <div class="space-y-2">
                     <label class="block text-sm font-bold">
                         Location
-                        <input name="location"
-                            class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            placeholder="e.g. Manila office">
+                        <select name="location"
+                            class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
+                            <option value="Admin Office"
+                                value="{{ old('location') === 'Admin Office' ? 'selected' : '' }}">Admin Office</option>
+                            <option value="Operation Office"
+                                value="{{ old('location') === 'Operation Office' ? 'selected' : '' }}">Operation Office
+                            </option>
+                            <option value="IPQC" value="{{ old('location') === 'IPQC' ? 'selected' : '' }}">IPQC
+                            </option>
+                            <option value="Diecast Area"
+                                value="{{ old('location') === 'Diecast Area' ? 'selected' : '' }}">Diecast Area</option>
+                            <option value="Deburring Area"
+                                value="{{ old('location') === 'Deburring Area' ? 'selected' : '' }}">Deburring Area
+                            </option>
+                            <option value="Machining Area"
+                                value="{{ old('location') === 'Machining Area' ? 'selected' : '' }}">Machining Area
+                            </option>
+                            <option value="Washing Area"
+                                value="{{ old('location') === 'Washing Area' ? 'selected' : '' }}">Washing Area</option>
+                            <option value="FVI Area" value="{{ old('location') === 'FVI Area' ? 'selected' : '' }}">FVI
+                                Area</option>
+                            <option value="Flatness & Vibration Area"
+                                value="{{ old('location') === 'Flatness & Vibration Area' ? 'selected' : '' }}">Flatness
+                                & vibration Area</option>
+                            <option value="OQI Area" value="{{ old('location') === 'OQI Area' ? 'selected' : '' }}">OQI
+                                Area</option>
+                            <option value="Warehouse" value="{{ old('location') === 'Warehouse' ? 'selected' : '' }}">
+                                Warehouse</option>
+                            <option value="Warehouse 3rd Floor"
+                                value="{{ old('location') === 'Warehouse 3rd Floor' ? 'selected' : '' }}">Warehouse 3rd
+                                Floor</option>
+                            <option value="Guard House"
+                                value="{{ old('location') === 'Guard House' ? 'selected' : '' }}">Guard House</option>
+                            <option value="Canteen" value="{{ old('location') === 'Canteen' ? 'selected' : '' }}">
+                                Canteen</option>
+                        </select>
                     </label>
 
-                    @error('location')
+                    @error('locaiton')
                     <p class="text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
@@ -190,7 +234,7 @@
                         Purchase date
                         <input name="purchase_date"
                             class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none focus:border-signal"
-                            type="date">
+                            type="date" value="{{ old('purchase_date') }}">
                     </label>
 
                     @error('purchase_date')
@@ -204,7 +248,7 @@
                         Warranty Expiration
                         <input name="warranty_expiration"
                             class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none focus:border-signal"
-                            type="date">
+                            type="date" value="{{ old('warranty_expiration') }}">
                     </label>
 
                     @error('warranty_expiration')
@@ -221,7 +265,7 @@
                 Notes
                 <textarea name="notes"
                     class="mt-2 min-h-28 w-full resize-y rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                    placeholder="Add purchase, condition, or configuration notes…"></textarea>
+                    placeholder="Add purchase, condition, or configuration notes…">{{ old('notes') ?? '' }}</textarea>
             </label>
         </section>
 
@@ -238,4 +282,6 @@
 
         </div>
     </form>
+
+    @vite('resources/js/assets/create.js')
 </x-layouts.app>

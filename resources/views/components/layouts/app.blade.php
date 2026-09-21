@@ -9,8 +9,6 @@
             {{ $slot }}
         </main>
     </div>
-
-    @include('components.partials.forms.add-asset')
 </body>
 
 @include('components.partials.footer')

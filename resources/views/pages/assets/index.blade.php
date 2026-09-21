@@ -1,6 +1,6 @@
 <x-layouts.app>
     <header class="flex flex-wrap items-center justify-between gap-4">
-        <a class="text-sm font-bold text-slate-500 hover:text-ink" href="it-inventory-home.html">← Back to
+        <a class="text-sm font-bold text-slate-500 hover:text-ink" href="/">← Back to
             overview</a><span class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">IT assets
             inventory record</span>
     </header>

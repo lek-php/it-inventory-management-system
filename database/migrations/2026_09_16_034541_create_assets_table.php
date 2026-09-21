@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('vendor')->nullable();
             $table->enum('status', ['Available', 'Assigned', 'In repair', 'For maintenance', 'Not good', 'For disposal', 'Disposed'])->default('Available');
             $table->string('assigned_to')->nullable();
-            $table->string('location')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('warranty_expiration')->nullable();
             $table->text('notes')->nullable();
