@@ -4,6 +4,12 @@
             class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">New inventory record</span>
     </header>
 
+
+    @if (session('success'))
+    <x-partials.toaster>User Added Successfully</x-partials.toaster>
+    @endif
+
+
     <section class="mt-10">
         <div class="flex flex-wrap items-end justify-between gap-5">
             <div>

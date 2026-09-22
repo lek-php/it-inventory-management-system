@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Asset;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +15,11 @@ Route::get('/api/assets/all', function () {
 });
 
 Route::get('/api/users/all', function () {
-    return User::all();
+    return User::with('department')->get();
+});
+
+Route::get('/api/departments/all', function () {
+    return Department::all();
 });
 
 
@@ -71,48 +76,57 @@ Route::post('/assets/create', function () {
     ]);
 
     // Redirect to the asset creation page after successful submission
-    return redirect('/assets/create');
+    return redirect('/assets/create')
+        ->with('success', 'New asset added successfully');
 });
 
 Route::get('/assets/create', function () {
     return view('pages.assets.create');
 });
 
+
+
+
+
 // USERS/ PEOPLE ROUTES
 Route::get('/users', function () {
     return view('pages.users.index');
 });
 
-Route::post("/users/create", function () {
-    //validation...
-    if (request()->has('password')) {
-        request()->validate([
-            'employee_id' => 'required',
-            'department' => 'required',
-            'phone' => 'regex:/^(09\d{9}|\+639\d{9})$/',
-            'email' => 'required|email',
-            'position' => 'required',
-            'password' => 'required|min:8',
-        ]);
-    } else {
-        request()->validate([
-            'employee_id' => 'required',
-            'department' => 'required',
-            'phone' => 'regex:/^(09\d{9}|\+639\d{9})$/',
-            'email' => 'required|email',
-            'position' => 'required',
-        ]);
-    }
-    // Create a new user record in the database
-    dd(request()->all());
+Route::post('/users/create', function () {
 
-    // Redirect to the user creation page after successful submission
-    redirect('/users/create')->with('message', 'User created successfully!');
+    $rules = [
+        'employee_id' => 'required',
+        'name' => 'required',
+        'department' => 'required',
+        'phone' => [
+            'regex:/^(09\d{9}|\+639\d{9})$/',
+        ],
+        'email' => 'required|email',
+        'position' => 'required',
+    ];
+
+    if (request()->boolean('is_login_user')) {
+        $rules['password'] = 'required|min:8';
+    }
+
+    request()->validate($rules);
+
+    // Create user here...
+    User::create([
+        'employee_id' => request('employee_id'),
+        'name' => request('name'),
+        'department_id' => request('department'),
+        'phone' => request('phone'),
+        'email' => request('email'),
+        'position' => request('position'),
+        'password' => request('password'),
+    ]);
+
+    return redirect('/users/create')
+        ->with('success', 'User added successfully!');
 });
 
 Route::get('users/create', function () {
     return view('pages.users.create');
 });
-
-// Route::view('/', 'pages.index');
-// Route::view('/login', 'pages.auth.login');

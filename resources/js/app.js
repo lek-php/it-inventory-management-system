@@ -55,3 +55,21 @@ export const badge = (s) => {
             return "bg-gray-100 text-gray-700";
     }
 };
+
+// This function handles toaster behavior
+export const toaster = (toast, closeToast) => {
+    const toaster = document.getElementById(toast);
+    const closeToaster = document.getElementById(closeToast);
+    if (!toaster) {
+        return;
+    }
+
+    setTimeout(() => {
+        toaster.classList.add('hidden');
+    }, 2000);
+
+
+    closeToaster.addEventListener('click', () => {
+        toaster.classList.add('hidden');
+    });
+}

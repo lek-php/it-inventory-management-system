@@ -4,6 +4,11 @@
             class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">New user record</span>
     </header>
     <div class="mx-auto mt-10 max-w-4xl">
+
+        @if (session('success'))
+        <x-partials.toaster>New user added successfully</x-partials.toaster>
+        @endif
+
         <div>
             <p class="text-sm font-bold text-signal">PEOPLE & ASSIGNMENTS</p>
             <h1 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Add a user</h1>
@@ -17,61 +22,89 @@
                     <p class="mt-1 text-sm text-slate-500">Identification and contact information.</p>
                 </div>
                 <div class="mt-6 grid gap-5 sm:grid-cols-2">
-                    <label class="block text-sm font-bold">
-                        Employee ID
-                        <input
-                            class="mono mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            name="employee_id" required placeholder="e.g. EMP-00000">
-                    </label>
 
-                    <label class="block text-sm font-bold">
-                        Name
-                        <input
-                            class="mono mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            name="name" required placeholder="e.g. John Doe">
-                    </label>
+                    <div class="space-y-2"><label class="block text-sm font-bold">
+                            Employee ID
+                            <input
+                                class="mono mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
+                                name="employee_id" placeholder="e.g. EMP-00000" value="{{ old('employee_id') ?? '' }}">
+                        </label>
 
-                    <label class="block text-sm font-bold">
-                        Department
-                        <select
-                            class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal"
-                            name="department" required>
-                            <option value="">Select department</option>
-                            <option>Information Technology </option>
-                            <option>Quality Assurance</option>
-                            <option>Casting</option>
-                            <option>PPMC</option>
-                            <option>Finance</option>
-                            <option>Sales</option>
-                            <option>Secondary</option>
-                            <option>Management</option>
-                            <option>Compliance</option>
-                            <option>Facility</option>
-                            <option>Maintenance</option>
-                            <option>Human Resource</option>
-                        </select>
-                    </label>
+                        @error('employee_id')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                    <label class="block text-sm font-bold">
-                        Phone
-                        <input
-                            class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            name="phone" type="tel" placeholder="e.g. +63 917 123 4567">
-                    </label>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold">
+                            Name
+                            <input
+                                class="mono mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
+                                name="name" placeholder="e.g. John Doe" value="{{ old('name') ?? '' }}">
+                        </label>
 
-                    <label class="block text-sm font-bold">
-                        Email
-                        <input
-                            class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            name="email" type="email" required placeholder="employee@company.com">
-                    </label>
+                        @error('name')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                    <label class="block text-sm font-bold">
-                        Position
-                        <input
-                            class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                            name="position" required placeholder="e.g. Product Designer">
-                    </label>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold">
+                            Department
+                            <select
+                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal"
+                                name="department" id="departments" wire:
+                                data-selected="{{ old('department', $user->department ?? '') }}">
+                                <option value="">Select a department</option>
+                            </select>
+                        </label>
+
+                        @error('department')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold">
+                            Phone
+                            <input
+                                class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
+                                name="phone" type="tel" placeholder="e.g. +63 917 123 4567"
+                                value="{{ old('phone') ?? '' }}">
+                        </label>
+
+                        @error('phone')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold">
+                            Email
+                            <input
+                                class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
+                                name="email" type="email" placeholder="employee@company.com"
+                                value="{{ old('email') ?? '' }}">
+                        </label>
+
+                        @error('email')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold">
+                            Position
+                            <input
+                                class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
+                                name="position" placeholder="e.g. Product Designer" value="{{ old('position') ?? '' }}">
+                        </label>
+
+                        @error('position')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                 </div>
             </section>
 
@@ -111,15 +144,21 @@
                         </span>
                     </label>
 
-                    <label class="block text-sm font-bold">
-                        Password
-                        <span class="font-normal text-slate-400">
-                            (optional unless login is enabled)
-                        </span>
-                        <input
-                            class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal disabled:cursor-not-allowed disabled:bg-slate-100"
-                            id="password" name="password" type="password" disabled placeholder="No password set">
-                    </label>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold">
+                            Password
+                            <span class="font-normal text-slate-400">
+                                (optional unless login is enabled)
+                            </span>
+                            <input
+                                class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal disabled:cursor-not-allowed disabled:bg-slate-100"
+                                id="password" name="password" type="password" disabled placeholder="No password set">
+                        </label>
+
+                        @error('password')
+                        <p class="text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
             </section>
             <div class="flex flex-wrap justify-end gap-3 pb-10">
