@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tag');
             $table->string('manufacturer');
             $table->string('model');
-            $table->string('serial_number')->unique();
+            $table->string('serial_number')->unique()->nullable();
             $table->string('vendor')->nullable();
             $table->enum('status', ['Available', 'Assigned', 'In repair', 'For maintenance', 'Not good', 'For disposal', 'Disposed'])->default('Available');
             $table->string('assigned_to')->nullable();

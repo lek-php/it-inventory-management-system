@@ -49,7 +49,7 @@
             <div>
                 <h2 class="text-lg font-extrabold">Asset directory</h2>
                 <p class="mt-1 text-sm text-slate-500">
-                    <span id="count">6</span> of 1,284 assets shown
+                    <span id="count">6</span> assets shown
                 </p>
             </div>
             <div class="flex items-center rounded-xl bg-slate-100 p-1">
@@ -61,9 +61,14 @@
             </div>
         </div>
         <div class="mt-6 grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto_auto_auto]">
-            <label class="relative block"><span class="absolute left-4 top-3 text-slate-400">⌕</span><input
+            <label class="relative block">
+                <span class="absolute left-4 top-3 text-slate-400">⌕</span>
+                <input
                     class="w-full rounded-xl border border-slate-200 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-slate-400 focus:border-signal"
-                    id="search" placeholder="Search name, asset tag, serial number…" /></label><select
+                    id="search" placeholder="Search name, asset tag, serial number…" />
+            </label>
+
+            <select
                 class="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-signal"
                 id="category">
                 <option value="all">All categories</option>
@@ -71,8 +76,8 @@
                 <option>Desktop</option>
                 <option>Tablet</option>
                 <option>Printer</option>
-                <option>Peripherals</option>
-                <option>Network</option>
+                <option>Peripheras</option>
+                <option>Network Devices</option>
             </select><select
                 class="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold outline-none focus:border-signal"
                 id="status">
@@ -92,17 +97,20 @@
         </div>
         <div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
             <span class="font-bold text-slate-400">Quick filters:</span>
-            <button class="quick rounded-full bg-emerald-50 px-3 py-1.5 font-bold text-signal" data-status="Available"
-                type="button">
+            <button
+                class="quick rounded-full bg-emerald-50 px-3 py-1.5 font-bold text-signal cursor-pointer hover:opacity-80 transition"
+                data-status="Available" type="button">
                 Available
             </button>
-            <button class="quick rounded-full bg-amber-50 px-3 py-1.5 font-bold text-amber-700" data-status="In repair"
-                type="button">
+            <button
+                class="quick rounded-full bg-amber-50 px-3 py-1.5 font-bold text-amber-700 cursor-pointer hover:opacity-80 transition"
+                data-status="In repair" type="button">
                 Needs repair
             </button>
-            <button class="quick rounded-full bg-slate-100 px-3 py-1.5 font-bold text-slate-600"
-                data-status="For maintenance" type="button">
-                For maintenance
+            <button
+                class="quick rounded-full bg-slate-100 px-3 py-1.5 font-bold text-slate-600 cursor-pointer hover:opacity-80 transition"
+                data-status="For disposal" type="button">
+                For disposal
             </button>
         </div>
         <div class="mt-6 hidden rounded-xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-signal" id="bulk">
@@ -119,7 +127,7 @@
                                 type="checkbox" />
                         </th>
                         <th class="pb-3 font-semibold">
-                            <button class="sort font-semibold" data-key="name" type="button">
+                            <button class="sort font-semibold" data-key="asset_name" type="button">
                                 Asset ↕
                             </button>
                         </th>
@@ -143,18 +151,17 @@
         </div>
         <div class="mt-5 hidden grid gap-4 sm:grid-cols-2 xl:grid-cols-3" id="cards"></div>
         <div class="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5 text-sm">
-            <p class="text-slate-500">
-                Showing <b class="text-ink">1–6</b> of
-                <b class="text-ink">1,284</b> assets
+            <p class="text-slate-500" id="pageSummary">
+                Showing <b class="text-ink">1–4</b> of <b class="text-ink">6</b> assets
             </p>
-            <div class="flex gap-2">
-                <button class="rounded-lg border border-slate-200 px-3 py-2 font-bold text-slate-400" disabled
-                    type="button">
-                    ← Previous</button><button
-                    class="rounded-lg border border-slate-200 px-3 py-2 font-bold text-slate-600 hover:bg-slate-50"
-                    type="button">
-                    Next →
-                </button>
+            <div class="flex items-center gap-2">
+                <button
+                    class="rounded-lg border border-slate-200 px-3 py-2 font-bold text-slate-600 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
+                    id="previous" type="button">← Previous</button>
+                <div class="flex gap-1" id="pageNumbers"></div>
+                <button
+                    class="rounded-lg border border-slate-200 px-3 py-2 font-bold text-slate-600 hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300"
+                    id="next" type="button">Next →</button>
             </div>
         </div>
     </section>

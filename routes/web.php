@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Route;
 
 //API Routes
 Route::get('/api/assets/all', function () {
-    return Asset::all();
+    return Asset::latest()->get();
 });
 
 Route::get('/api/users/all', function () {
-    return User::with('department')->get();
+    return User::with('department')->latest()->get();
 });
 
 Route::get('/api/departments/all', function () {

@@ -6,7 +6,7 @@
 
 
     @if (session('success'))
-    <x-partials.toaster>User Added Successfully</x-partials.toaster>
+    <x-partials.toaster>Asset added successfully!</x-partials.toaster>
     @endif
 
 

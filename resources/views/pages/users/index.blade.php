@@ -64,13 +64,13 @@
                             <th class="pb-3 font-semibold"><button class="sort font-semibold" data-key="name"
                                     type="button">Person
                                     ↕</button></th>
-                            <th class="pb-3 font-semibold"><button class="sort font-semibold" data-key="department"
+                            <th class="pb-3 font-semibold"><button class="sort font-semibold" data-key="department_id"
                                     type="button">Department ↕</button></th>
                             <th class="pb-3 font-semibold">Assets</th>
                             <th class="pb-3 font-semibold"><button class="sort font-semibold" data-key="state"
                                     type="button">Assignment ↕</button></th>
                             <th class="pb-3 text-right font-semibold"><button class="sort font-semibold"
-                                    data-key="activityOrder" type="button">Last activity ↕</button></th>
+                                    data-key="updated_at" type="button">Last activity ↕</button></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100" id="peopleRows"></tbody>
