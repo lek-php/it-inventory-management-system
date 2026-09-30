@@ -54,7 +54,16 @@
                     <option value="unassigned">No assets</option>
                     <option value="return">Return due</option>
                 </select>
-            </div><label class="relative mt-5 block"><span class="absolute left-4 top-3 text-slate-400">⌕</span><input
+            </div>
+            <label class="relative mt-5 block">
+                <span class="absolute left-3 top-2.5 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </span>
+                <input
                     class="w-full rounded-xl border border-slate-200 py-2.5 pl-10 pr-4 text-sm outline-none placeholder:text-slate-400 focus:border-signal"
                     id="search" placeholder="Search people, department, or asset tag…"></label>
             <div class="mt-5 overflow-x-auto">
@@ -66,9 +75,9 @@
                                     ↕</button></th>
                             <th class="pb-3 font-semibold"><button class="sort font-semibold" data-key="department_id"
                                     type="button">Department ↕</button></th>
-                            <th class="pb-3 font-semibold">Assets</th>
+                            <th class="pb-3 font-semibold">Email</th>
                             <th class="pb-3 font-semibold"><button class="sort font-semibold" data-key="state"
-                                    type="button">Assignment ↕</button></th>
+                                    type="button">Status</button></th>
                             <th class="pb-3 text-right font-semibold"><button class="sort font-semibold"
                                     data-key="updated_at" type="button">Last activity ↕</button></th>
                         </tr>

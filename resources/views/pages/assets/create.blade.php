@@ -194,43 +194,64 @@
                         Location
                         <select name="location"
                             class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
+                            <option value="">Select a location</option>
                             <option value="Admin Office"
-                                value="{{ old('location') === 'Admin Office' ? 'selected' : '' }}">Admin Office</option>
-                            <option value="Operation Office"
-                                value="{{ old('location') === 'Operation Office' ? 'selected' : '' }}">Operation Office
+                                value="{{ old('location') === 'Admin Office' ? 'selected' : '' }}">
+                                Admin Office
                             </option>
-                            <option value="IPQC" value="{{ old('location') === 'IPQC' ? 'selected' : '' }}">IPQC
+                            <option value="Clinic" value="{{ old('location') === 'Clinic' ? 'selected' : '' }}">
+                                Clinic
+                            </option>
+                            <option value="Operation Office"
+                                value="{{ old('location') === 'Operation Office' ? 'selected' : '' }}">
+                                Operation Office
+                            </option>
+                            <option value="IPQC" value="{{ old('location') === 'IPQC' ? 'selected' : '' }}">
+                                IPQC
                             </option>
                             <option value="Diecast Area"
-                                value="{{ old('location') === 'Diecast Area' ? 'selected' : '' }}">Diecast Area</option>
+                                value="{{ old('location') === 'Diecast Area' ? 'selected' : '' }}">
+                                Diecast Area
+                            </option>
                             <option value="Deburring Area"
-                                value="{{ old('location') === 'Deburring Area' ? 'selected' : '' }}">Deburring Area
+                                value="{{ old('location') === 'Deburring Area' ? 'selected' : '' }}">
+                                Deburring Area
                             </option>
                             <option value="Machining Area"
-                                value="{{ old('location') === 'Machining Area' ? 'selected' : '' }}">Machining Area
+                                value="{{ old('location') === 'Machining Area' ? 'selected' : '' }}">
+                                Machining Area
                             </option>
                             <option value="Washing Area"
-                                value="{{ old('location') === 'Washing Area' ? 'selected' : '' }}">Washing Area</option>
-                            <option value="FVI Area" value="{{ old('location') === 'FVI Area' ? 'selected' : '' }}">FVI
-                                Area</option>
+                                value="{{ old('location') === 'Washing Area' ? 'selected' : '' }}">
+                                Washing Area
+                            </option>
+                            <option value="FVI Area" value="{{ old('location') === 'FVI Area' ? 'selected' : '' }}">
+                                FVI Area
+                            </option>
                             <option value="Flatness & Vibration Area"
-                                value="{{ old('location') === 'Flatness & Vibration Area' ? 'selected' : '' }}">Flatness
-                                & vibration Area</option>
-                            <option value="OQI Area" value="{{ old('location') === 'OQI Area' ? 'selected' : '' }}">OQI
-                                Area</option>
+                                value="{{ old('location') === 'Flatness & Vibration Area' ? 'selected' : '' }}">
+                                Flatness & vibration Area
+                            </option>
+                            <option value="OQI Area" value="{{ old('location') === 'OQI Area' ? 'selected' : '' }}">
+                                OQI Area
+                            </option>
                             <option value="Warehouse" value="{{ old('location') === 'Warehouse' ? 'selected' : '' }}">
-                                Warehouse</option>
+                                Warehouse
+                            </option>
                             <option value="Warehouse 3rd Floor"
-                                value="{{ old('location') === 'Warehouse 3rd Floor' ? 'selected' : '' }}">Warehouse 3rd
-                                Floor</option>
+                                value="{{ old('location') === 'Warehouse 3rd Floor' ? 'selected' : '' }}">
+                                Warehouse 3rd Floor
+                            </option>
                             <option value="Guard House"
-                                value="{{ old('location') === 'Guard House' ? 'selected' : '' }}">Guard House</option>
+                                value="{{ old('location') === 'Guard House' ? 'selected' : '' }}">Guard House
+                            </option>
                             <option value="Canteen" value="{{ old('location') === 'Canteen' ? 'selected' : '' }}">
-                                Canteen</option>
+                                Canteen
+                            </option>
                         </select>
                     </label>
 
-                    @error('locaiton')
+                    @error('location')
                     <p class="text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
@@ -264,6 +285,50 @@
 
             </div>
         </section>
+
+        <section class="rounded-2xl bg-white p-6 shadow-soft sm:p-7">
+            <div class="border-b border-slate-100 pb-5">
+                <h2 class="text-lg font-extrabold">Asset settings</h2>
+                <p class="mt-1 text-sm text-slate-500">Control this asset's status and configuration.</p>
+            </div>
+
+            <div class="mt-6 space-y-4">
+                <label
+                    class="flex cursor-pointer items-center justify-between gap-5 rounded-xl border border-slate-200 p-4">
+                    <span>
+                        <b class="block text-sm">Network</b>
+                        <span class="mt-1 block text-sm text-slate-500">
+                            Network access and connectivity for this asset.
+                        </span>
+                    </span>
+
+                    <span class="relative inline-flex items-center">
+                        <input class="peer sr-only" name="has_network" type="checkbox" value="1" checked>
+                        <span class="h-6 w-11 rounded-full bg-slate-200 transition peer-checked:bg-signal"></span>
+                        <span
+                            class="absolute left-1 h-4 w-4 rounded-full bg-white transition peer-checked:translate-x-5"></span>
+                    </span>
+                </label>
+
+                <label
+                    class="flex cursor-pointer items-center justify-between gap-5 rounded-xl border border-slate-200 p-4">
+                    <span>
+                        <b class="block text-sm">Anti Virus</b>
+                        <span class="mt-1 block text-sm text-slate-500">
+                            Antivirus protection and security monitoring for this asset.
+                        </span>
+                    </span>
+
+                    <span class="relative inline-flex items-center">
+                        <input class="peer sr-only" id="hasAntiVirus" name="has_anti_virus" type="checkbox" value="1">
+                        <span class="h-6 w-11 rounded-full bg-slate-200 transition peer-checked:bg-signal"></span>
+                        <span
+                            class="absolute left-1 h-4 w-4 rounded-full bg-white transition peer-checked:translate-x-5"></span>
+                    </span>
+                </label>
+            </div>
+        </section>
+
 
         <section class="rounded-2xl bg-white p-6 shadow-soft sm:p-7">
             <h2 class="text-lg font-extrabold">Additional notes</h2>

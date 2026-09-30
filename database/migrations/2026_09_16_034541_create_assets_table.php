@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('location');
             $table->date('purchase_date')->nullable();
             $table->date('warranty_expiration')->nullable();
+            $table->boolean('has_network')->default(false);
+            $table->boolean('has_anti_virus')->default(false);
             $table->text('notes')->nullable();
             $table->timestamps();
         });

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 //API Routes
 Route::get('/api/assets/all', function () {
-    return Asset::latest()->get();
+    return Asset::with('assignedUser')->latest()->get();
 });
 
 Route::get('/api/users/all', function () {
@@ -59,7 +59,7 @@ Route::post('/assets/create', function () {
         'warranty_expiration' => 'required|date',
     ]);
 
-    // Create a new asset record in the database
+    // // Create a new asset record in the database
     Asset::create([
         'asset_name' => request('asset_name'),
         'category' => request('category'),
@@ -73,15 +73,21 @@ Route::post('/assets/create', function () {
         'location' => request('location'),
         'purchase_date' => request('purchase_date'),
         'warranty_expiration' => request('warranty_expiration'),
+        'has_network' => request('has_network') ? 1 : 0,
+        'has_anti_virus' => request('has_anti_virus') ? 1 : 0,
     ]);
 
-    // Redirect to the asset creation page after successful submission
+    // // Redirect to the asset creation page after successful submission
     return redirect('/assets/create')
         ->with('success', 'New asset added successfully');
 });
 
 Route::get('/assets/create', function () {
     return view('pages.assets.create');
+});
+
+Route::get('/assets/asset/{employee_id}', function ($employee_id) {
+    return view('pages.assets.show',);
 });
 
 

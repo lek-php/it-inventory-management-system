@@ -2,6 +2,7 @@
 import { timeAgo, badge } from '../app.js';
 
 const assets = await (await fetch('/api/assets/all')).json();
+console.log(assets);
 
 let current = [...assets];
 let sortDirection = 1;
@@ -60,18 +61,18 @@ function render() {
                         ${a.category}
                     </td>
 
-                    <td class="py-4 ${a.assigned_to === null
-                    ? 'text-amber-700'
-                    : 'text-slate-600'
-                }">
-                        ${a.assigned_to ?? 'Unassigned'}
+                    <td class="py-4">
+                        <b class="block">${a.assigned_user ? a.assigned_user.name : ''}</b>
+                        <span class="mono text-xs text-slate-400">
+                            ${a.assigned_to}
+                        </span>
                     </td>
 
                     <td class="py-4">
                         <span
                             class="rounded-full px-2.5 py-1 text-xs font-bold ${badge(
-                    a.status,
-                )}"
+                a.status,
+            )}"
                         >
                             ${a.status}
                         </span>
@@ -137,7 +138,7 @@ function render() {
                             </dt>
 
                             <dd class="mt-1 font-semibold ${a.assigned_to === 'null' ? 'text-amber-700' : 'text-slate-600'}">
-                                ${a.assigned_to ?? 'Unassigned'}
+                                ${a.assigned_user ? a.assigned_user.name : 'Unassigned'}
                             </dd>
                         </div>
                     </dl>

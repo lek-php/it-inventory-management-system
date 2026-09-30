@@ -115,7 +115,7 @@ function render() {
                     <td class="py-4">
                         <div class="flex items-center gap-3">
                             <span
-                                class="grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-xs font-extrabold text-slate-600"
+                                class="grid h-9 w-9 place-items-center text rounded-full bg-slate-100 text-xs font-extrabold text-slate-600"
                             >
                                 ${person.name}
                             </span>
@@ -123,25 +123,20 @@ function render() {
                         </div>
                     </td>
 
-                    <td class="py-4 text-slate-600">
+                    <td class="py-4 text-slate-600 text-wrap">
                         ${person.department.name}
                     </td>
 
                     <td class="py-4">
-                        <span class="block font-semibold text-slate-700">
-                            ${person.label}
-                        </span>
-
-                        <span class="mono text-xs text-slate-400">
-                            ${person.assets}
+                        <span class="block text-slate-700">
+                            ${person.email}
                         </span>
                     </td>
 
                     <td class="py-4">
                         <span
-                            class="rounded-full px-2.5 py-1 text-xs font-bold ${statusBadge(person)}"
-                        >
-                            ${statusLabel(person)}
+                            class="rounded-full px-2.5 py-1 text-xs font-bold ${person.is_active ? 'text-green-500' : 'text-red-600'}">
+                            ${(person.is_active ? 'Active ●' : 'Inactive ●')}
                         </span>
                     </td>
 
