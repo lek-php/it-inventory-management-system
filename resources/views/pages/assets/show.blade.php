@@ -5,16 +5,22 @@
             record</span></header>
     <section class="mt-10">
         <div class="flex flex-wrap items-start justify-between gap-5">
-            <div class="flex gap-4"><span
-                    class="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-2xl text-signal">▣</span>
+            <div class="flex gap-4">
+                <span
+                    class="flex items-start justify-center h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-2xl text-signal">
+                    <img src="{{ \App\Helpers\AssetHelper::categoryLabel($asset->category) }}"
+                        alt="{{ $asset['category'] }}" class="h-10 w-10">
+                </span>
                 <div>
                     <div class="flex flex-wrap items-center gap-3">
-                        <h1 class="text-3xl font-extrabold tracking-tight" id="assetName">MacBook Pro 14-inch
+                        <h1 class="text-3xl font-extrabold tracking-tight" id="assetName">{{ $asset['asset_name'] }}
                         </h1><span class="rounded-full bg-sky-50 px-2.5 py-1 text-xs font-bold text-sky-700"
-                            id="assetStatus">In use</span>
+                            id="assetStatus">{{ $asset['status'] === 'Assigned' ? 'In use' : $asset['status'] }}</span>
                     </div>
-                    <p class="mono mt-2 text-sm text-slate-400" id="assetTag">AT-2048 · C02XX8JCLVDD</p>
-                    <p class="mt-2 text-sm text-slate-500" id="assetSubline">Apple · Laptop · Added today</p>
+                    <p class="mono mt-2 text-sm text-slate-400" id="assetTag">{{ $asset['tag'] }} · {{ $asset['model']
+                        }}</p>
+                    <p class="mt-2 text-sm text-slate-500" id="assetSubline">{{ $asset['manufacturer'] }} · {{
+                        $asset['category'] }} · Added {{ \App\Helpers\AssetHelper::timeAgo($asset->created_at) }}</p>
                 </div>
             </div>
             <div class="flex flex-wrap gap-3"><button
@@ -31,27 +37,35 @@
                     <div>
                         <h2 class="text-lg font-extrabold">Asset overview</h2>
                         <p class="mt-1 text-sm text-slate-500">Identification, ownership, and current state.</p>
-                    </div><span class="mono rounded-lg bg-slate-100 px-3 py-2 text-xs font-medium"
-                        id="tagChip">AT-2048</span>
+                    </div><span class="mono rounded-lg bg-slate-100 px-3 py-2 text-xs font-medium" id="tagChip">{{
+                        $asset['tag'] }}</span>
                 </div>
                 <dl class="mt-6 grid gap-6 sm:grid-cols-2">
                     <div>
                         <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">Assigned to</dt>
-                        <dd class="mt-2 flex items-center gap-2 font-extrabold"><span
-                                class="grid h-7 w-7 place-items-center rounded-full bg-slate-100 text-[10px]"
-                                id="ownerInitials">MC</span><span id="ownerName">Maya Chen</span></dd>
+                        <dd class="mt-2 flex items-center gap-2 font-extrabold">
+                            <span class="grid h-7 w-7 place-items-center rounded-full bg-slate-100 text-[10px]"
+                                id="ownerInitials">
+                                {{ $asset->userDepartment->code }}
+                            </span>
+                            <span id="ownerName">
+                                {{ $asset->assignedUser->name }}
+                            </span>
+                        </dd>
                     </div>
                     <div>
                         <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">Location</dt>
-                        <dd class="mt-2 font-semibold" id="location">Manila office · Floor 8</dd>
+                        <dd class="mt-2 font-semibold" id="location">{{ $asset['location'] }}</dd>
                     </div>
                     <div>
                         <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">Category</dt>
-                        <dd class="mt-2 font-semibold" id="category">Laptop</dd>
+                        <dd class="mt-2 font-semibold" id="category">{{ $asset['category'] }}</dd>
                     </div>
                     <div>
                         <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">Purchase date</dt>
-                        <dd class="mt-2 font-semibold" id="purchaseDate">12 Jul 2026</dd>
+                        <dd class="mt-2 font-semibold" id="purchaseDate">
+                            {{ \App\Helpers\AssetHelper::formatDate($asset->purchase_date) }}
+                        </dd>
                     </div>
                 </dl>
             </article>
@@ -61,28 +75,39 @@
                 <div class="mt-6 grid gap-5 sm:grid-cols-3">
                     <div>
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Manufacturer</p>
-                        <p class="mt-2 font-semibold" id="manufacturer">Apple</p>
+                        <p class="mt-2 font-semibold" id="manufacturer">{{ $asset['manufacturer'] }}</p>
                     </div>
                     <div>
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Model</p>
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">{{ $asset['model'] }}</p>
                         <p class="mt-2 font-semibold" id="model">M4 Pro · 14-inch</p>
                     </div>
                     <div>
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Serial number</p>
-                        <p class="mono mt-2 text-sm font-medium" id="serial">C02XX8JCLVDD</p>
+                        <p class="mono mt-2 text-sm font-medium" id="serial">{{ $asset['serial_number'] }}</p>
                     </div>
                 </div>
                 <div class="mt-6 border-t border-slate-100 pt-6">
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-bold">Warranty coverage</p>
-                            <p class="mt-1 text-sm text-slate-500" id="warrantyText">Active until 12 Jul 2029
+                            <p class="mt-1 text-sm text-slate-500" id="warrantyText">Active until {{
+                                \App\Helpers\AssetHelper::formatDate($asset->warranty_expiration) }}
                             </p>
-                        </div><span class="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-signal"
-                            id="warrantyBadge">1,016 days left</span>
+                        </div>
+                        <span class="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-signal"
+                            id="warrantyBadge">
+                            {{ \App\Helpers\AssetHelper::warrantyDaysLeft(
+                            $asset->purchase_date,
+                            $asset->warranty_expiration
+                            ) }}
+                        </span>
                     </div>
-                    <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
-                        <div class="h-full w-[82%] rounded-full bg-signal"></div>
+                    <div id="warrantyProgress" data-purchase-date="{{ $asset->purchase_date }}"
+                        data-expiration-date="{{ $asset->warranty_expiration }}"
+                        class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
+                        <div id="warrantyProgressBar" class="h-full rounded-full transition-all duration-500"
+                            style="width: 0%">
+                        </div>
                     </div>
                 </div>
             </article>
@@ -129,6 +154,6 @@
         </aside>
     </section>
 
-    @vite('resources/js/assets/index.js')
+    @vite('resources/js/assets/show.js')
 
 </x-layouts.app>

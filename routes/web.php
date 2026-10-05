@@ -86,8 +86,11 @@ Route::get('/assets/create', function () {
     return view('pages.assets.create');
 });
 
-Route::get('/assets/asset/{employee_id}', function ($employee_id) {
-    return view('pages.assets.show',);
+Route::get('/assets/asset/{tag}', function ($tag) {
+    $asset = Asset::where('tag', $tag)->with('assignedUser')->firstOrFail();
+    return view('pages.assets.show', [
+        'asset' => $asset,
+    ]);
 });
 
 

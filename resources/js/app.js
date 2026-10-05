@@ -73,3 +73,26 @@ export const toaster = (toast, closeToast) => {
         toaster.classList.add('hidden');
     });
 }
+
+// This function will handle status color laber identification
+export const statusColor = (status) => {
+    switch (status.toLowerCase()) {
+        case "assigned":
+            return "text-teal-100";
+
+        case "in repair":
+            return "text-yellow-100";
+
+        case "for maintenance":
+            return "text-orange-100";
+
+        case "not good":
+            return "text-red-100";
+
+        case "for disposal":
+            return "text-gray-300";
+
+        case "disposed":
+            return "text-gray-100";
+    }
+}
