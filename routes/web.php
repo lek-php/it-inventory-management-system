@@ -93,6 +93,54 @@ Route::get('/assets/asset/{tag}', function ($tag) {
     ]);
 });
 
+Route::get('/assets/asset/{tag}/edit', function ($tag) {
+    $asset = Asset::where('tag', $tag)->with('assignedUser')->firstOrFail();
+    return view('pages.assets.edit', [
+        'asset' => $asset,
+    ]);
+});
+
+Route::post('/assets/update/{tag}', function ($tag) {
+    $asset = Asset::where('tag', $tag)->firstOrFail();
+
+    // Validate the request data
+    request()->validate([
+        'asset_name' => 'required',
+        'category' => 'required',
+        'manufacturer' => 'required',
+        'model' => 'required',
+        'serial_number' => 'required',
+        'vendor' => 'required',
+        'status' => 'required',
+        'assigned_to' => 'required',
+        'location' => 'required',
+        'purchase_date' => 'required|date',
+        'warranty_expiration' => 'required|date',
+    ]);
+
+    // Update the asset record in the database
+    $asset->update([
+        'asset_name' => request('asset_name'),
+        'category' => request('category'),
+        'manufacturer' => request('manufacturer'),
+        'model' => request('model'),
+        'serial_number' => request('serial_number'),
+        'vendor' => request('vendor'),
+        'status' => request('status'),
+        'assigned_to' => request('assigned_to'),
+        'location' => request('location'),
+        'purchase_date' => request('purchase_date'),
+        'warranty_expiration' => request('warranty_expiration'),
+        'has_network' => request()->has('has_network') ? 1 : 0,
+        'has_anti_virus' => request()->has('has_anti_virus') ? 1 : 0,
+        'notes' => request('notes')
+    ]);
+
+    // Redirect to the asset edit page after successful update
+    return redirect("/assets/asset/{$tag}/edit")
+        ->with('success', "Asset '{$asset->asset_name}' updated successfully");
+});
+
 
 
 

@@ -23,11 +23,17 @@
                         $asset['category'] }} · Added {{ \App\Helpers\AssetHelper::timeAgo($asset->created_at) }}</p>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-3"><button
-                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50"
-                    id="edit" type="button">Edit asset</button><button
-                    class="rounded-xl bg-ink px-4 py-2.5 text-sm font-extrabold text-white hover:bg-slate-700"
-                    id="assign" type="button">Assign asset</button></div>
+            <div class="flex flex-wrap gap-3">
+                <a href="/assets/asset/{{ $asset['tag'] }}/edit"
+                    class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition hover:text-slate-700"
+                    id="edit" type="button">
+                    Edit asset
+                </a>
+                <button class="rounded-xl bg-ink px-4 py-2.5 text-sm font-extrabold text-white hover:bg-slate-700"
+                    id="assign" type="button">
+                    Assign asset
+                </button>
+            </div>
         </div>
     </section>
     <section class="mt-8 grid gap-6 xl:grid-cols-[1.4fr_.8fr]">
@@ -111,7 +117,7 @@
                     </div>
                 </div>
             </article>
-            <article class="rounded-2xl bg-white p-6 shadow-soft">
+            <article class="hidden rounded-2xl bg-white p-6 shadow-soft">
                 <h2 class="text-lg font-extrabold">Activity</h2>
                 <div class="mt-5 space-y-5 border-l-2 border-slate-100 pl-5 text-sm">
                     <div class="relative"><span
@@ -128,7 +134,8 @@
             </article>
         </div>
         <aside class="space-y-6">
-            <article class="rounded-2xl bg-ink p-6 text-white shadow-soft">
+            {{-- HIDDEN FOR THE MEAN TIME --}}
+            <article class="hidden rounded-2xl bg-ink p-6 text-white shadow-soft">
                 <p class="text-xs font-bold tracking-[.16em] text-emerald-300">RECOMMENDED ACTIONS</p>
                 <h2 class="mt-2 text-xl font-extrabold">Keep this asset healthy.</h2>
                 <div class="mt-6 space-y-3" id="recommendations"><button
@@ -141,7 +148,7 @@
                                 class="mt-1 block text-xs text-slate-400">Next review is due in 90
                                 days.</span></span><span>→</span></button></div>
             </article>
-            <article class="rounded-2xl bg-white p-6 shadow-soft">
+            <article class=" rounded-2xl bg-white p-6 shadow-soft">
                 <h2 class="text-lg font-extrabold">Quick actions</h2>
                 <div class="mt-5 grid gap-3"><button
                         class="rounded-xl border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-700 hover:bg-slate-50"
