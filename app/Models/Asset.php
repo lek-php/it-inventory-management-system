@@ -16,9 +16,4 @@ class asset extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to', 'employee_id');
     }
-
-    public function userDepartment()
-    {
-        return $this->belongsTo(Department::class, 'id');
-    }
 }

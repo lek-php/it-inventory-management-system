@@ -1,4 +1,9 @@
 <x-layouts.app>
+
+    @if (session('success'))
+    <x-partials.toaster>{{ session('success') }}</x-partials.toaster>
+    @endif
+
     <header class="flex flex-wrap items-center justify-between gap-4"><a
             class="text-sm font-bold text-slate-500 hover:text-ink" href="/assets">← Back to
             assets</a><span class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">Asset
@@ -7,7 +12,7 @@
         <div class="flex flex-wrap items-start justify-between gap-5">
             <div class="flex gap-4">
                 <span
-                    class="flex items-start justify-center h-14 w-14 place-items-center rounded-2xl bg-emerald-50 text-2xl text-signal">
+                    class="flex items-start justify-center h-11 w-14 place-items-center rounded-2xl bg-emerald-50 text-2xl text-signal">
                     <img src="{{ \App\Helpers\AssetHelper::categoryLabel($asset->category) }}"
                         alt="{{ $asset['category'] }}" class="h-10 w-10">
                 </span>
@@ -29,10 +34,13 @@
                     id="edit" type="button">
                     Edit asset
                 </a>
-                <button class="rounded-xl bg-ink px-4 py-2.5 text-sm font-extrabold text-white hover:bg-slate-700"
-                    id="assign" type="button">
+                @if ($asset['assigned_to'] === 0)
+                <button
+                    class="rounded-xl bg-ink px-4 py-2.5 text-sm font-extrabold text-white hover:bg-slate-700 cursor-pointer transition"
+                    id="assign-user-btn" type="button">
                     Assign asset
                 </button>
+                @endif
             </div>
         </div>
     </section>
@@ -51,11 +59,11 @@
                         <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">Assigned to</dt>
                         <dd class="mt-2 flex items-center gap-2 font-extrabold">
                             <span class="grid h-7 w-7 place-items-center rounded-full bg-slate-100 text-[10px]"
-                                id="ownerInitials">
-                                {{ $asset->userDepartment->code }}
+                                id="departmentCode">
+                                {{ $asset->assignedUser?->department?->code ?? '' }}
                             </span>
                             <span id="ownerName">
-                                {{ $asset->assignedUser->name }}
+                                {{ $asset->assignedUser?->name ?? 'Unassigned' }}
                             </span>
                         </dd>
                     </div>
@@ -160,6 +168,85 @@
             </article>
         </aside>
     </section>
+
+    <!-- Parent / Overlay -->
+    <div id="assetModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4"
+        role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+
+            <!-- Header -->
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-signal">
+                        Asset Management
+                    </p>
+
+                    <h2 id="modalTitle" class="mt-1 text-xl font-extrabold text-ink">
+                        Assign asset
+                    </h2>
+
+                    <p class="mt-2 text-sm leading-5 text-slate-500">
+                        Assign this asset to a user. The assignment will be recorded
+                        in the asset inventory.
+                    </p>
+                </div>
+
+                <button type="button"
+                    class="closeAssignAssetModal grid h-9 w-9 shrink-0 place-items-center rounded-lg text-xl text-slate-400 hover:bg-slate-100 hover:text-ink"
+                    aria-label="Close modal">
+                    ×
+                </button>
+            </div>
+
+            <!-- Asset Information -->
+            <div class="mt-5 rounded-xl bg-slate-50 px-4 py-3">
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">
+                    Asset Tag
+                </p>
+
+                <p class="mt-1 font-bold text-ink">
+                    {{ $asset['asset_name'] }}
+                </p>
+            </div>
+
+            <!-- User Selection -->
+            <form class="mt-5" method="POST" action="/assets/asset/{{ $asset['id'] }}/assign">
+                @csrf
+                <div class="space-y-2">
+                    <input type="hidden" name="id" value="{{ $asset['id'] }}">
+                    <label class="block text-sm font-bold">
+                        Assign to
+                        <select name="assigned_to" id="users"
+                            class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
+                            <option value="">Unassigned</option>
+                        </select>
+                    </label>
+
+                    @error('assigned_to')
+                    <p class="text-sm text-red-500">
+                        {{ $message }}
+                    </p>
+                    @enderror
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-6 flex justify-end gap-3">
+                    <button type="button"
+                        class="closeAssignAssetModal rounded-xl px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-100 hover:text-slate-400 cursor-pointer transition">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                        class="rounded-xl bg-ink px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-700 cursor-pointer transition">
+                        Assign Asset
+                    </button>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
 
     @vite('resources/js/assets/show.js')
 

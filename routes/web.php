@@ -87,7 +87,7 @@ Route::get('/assets/create', function () {
 });
 
 Route::get('/assets/asset/{tag}', function ($tag) {
-    $asset = Asset::where('tag', $tag)->with('assignedUser')->firstOrFail();
+    $asset = Asset::where('tag', $tag)->with('assignedUser.department')->firstOrFail();
     return view('pages.assets.show', [
         'asset' => $asset,
     ]);
@@ -139,6 +139,22 @@ Route::post('/assets/update/{tag}', function ($tag) {
     // Redirect to the asset edit page after successful update
     return redirect("/assets/asset/{$tag}/edit")
         ->with('success', "Asset '{$asset->asset_name}' updated successfully");
+});
+
+Route::post('/assets/asset/{id}/assign', function ($id) {
+
+    $asset = Asset::findOrFail($id);
+
+    request()->validate([
+        'assigned_to' => 'required',
+    ]);
+
+    $asset->update([
+        'assigned_to' => request('assigned_to'),
+    ]);
+
+    return redirect("/assets/asset/{$asset->tag}")
+        ->with('success', "Asset '{$asset->asset_name}' assigned successfully");
 });
 
 
