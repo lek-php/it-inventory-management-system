@@ -43,6 +43,7 @@ Route::get('/assets', function () {
 });
 
 Route::post('/assets/create', function () {
+
     //validation...
     request()->validate([
         'asset_name' => 'required',
@@ -53,10 +54,11 @@ Route::post('/assets/create', function () {
         'serial_number' => 'required',
         'vendor' => 'required',
         'status' => 'required',
-        'assigned_to' => 'required',
-        'location' => 'required',
         'purchase_date' => 'required|date',
         'warranty_expiration' => 'required|date',
+
+        'assigned_to' => 'nullable|required_with:location',
+        'location' => 'nullable|required_with:assigned_to',
     ]);
 
     // // Create a new asset record in the database
@@ -86,22 +88,22 @@ Route::get('/assets/create', function () {
     return view('pages.assets.create');
 });
 
-Route::get('/assets/asset/{tag}', function ($tag) {
-    $asset = Asset::where('tag', $tag)->with('assignedUser.department')->firstOrFail();
+Route::get('/assets/asset/{id}', function ($id) {
+    $asset = Asset::where('id', $id)->with('assignedUser.department')->firstOrFail();
     return view('pages.assets.show', [
         'asset' => $asset,
     ]);
 });
 
-Route::get('/assets/asset/{tag}/edit', function ($tag) {
-    $asset = Asset::where('tag', $tag)->with('assignedUser')->firstOrFail();
+Route::get('/assets/asset/{id}/edit', function ($id) {
+    $asset = Asset::where('id', $id)->with('assignedUser')->firstOrFail();
     return view('pages.assets.edit', [
         'asset' => $asset,
     ]);
 });
 
-Route::post('/assets/update/{tag}', function ($tag) {
-    $asset = Asset::where('tag', $tag)->firstOrFail();
+Route::post('/assets/update/{id}', function ($id) {
+    $asset = Asset::where('id', $id)->firstOrFail();
 
     // Validate the request data
     request()->validate([
@@ -137,7 +139,7 @@ Route::post('/assets/update/{tag}', function ($tag) {
     ]);
 
     // Redirect to the asset edit page after successful update
-    return redirect("/assets/asset/{$tag}/edit")
+    return redirect("/assets/asset/{$id}/edit")
         ->with('success', "Asset '{$asset->asset_name}' updated successfully");
 });
 
@@ -147,13 +149,15 @@ Route::post('/assets/asset/{id}/assign', function ($id) {
 
     request()->validate([
         'assigned_to' => 'required',
+        'location' => 'required',
     ]);
 
     $asset->update([
         'assigned_to' => request('assigned_to'),
+        'location' => request('location'),
     ]);
 
-    return redirect("/assets/asset/{$asset->tag}")
+    return redirect("/assets/asset/{$asset->id}")
         ->with('success', "Asset '{$asset->asset_name}' assigned successfully");
 });
 

@@ -64,7 +64,7 @@ function render() {
                     <td class="py-4">
                         <b class="block">${a.assigned_user ? a.assigned_user.name : ''}</b>
                         <span class="mono text-xs text-slate-400">
-                            ${a.assigned_to}
+                            ${a.assigned_to ?? 'Unassigned'}
                         </span>
                     </td>
 
@@ -83,7 +83,7 @@ function render() {
                     </td>
 
                     <td class="py-4 text-right">
-                        <a href="${"assets/asset/" + a.tag}"
+                        <a href="${"assets/asset/" + a.id}"
                             class="font-bold text-slate-400 hover:text-signal"
                             aria-label="More actions for ${a.name}"
                             type="button"
@@ -144,7 +144,7 @@ function render() {
                     </dl>
 
                     <a
-                        href="${"/assets/asset/" + a.tag}"
+                        href="${"/assets/asset/" + a.id}"
                         class="mt-5 text-sm font-bold text-signal"
                         type="button"
                     >

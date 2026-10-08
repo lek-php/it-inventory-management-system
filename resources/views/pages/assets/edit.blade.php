@@ -1,6 +1,6 @@
 <x-layouts.app>
     <header class="flex items-center justify-between"><a class="text-sm font-bold text-slate-500 hover:text-ink"
-            href="/assets/asset/{{ $asset['tag'] }}">← Back to asset</a><span
+            href="/assets/asset/{{ $asset['id'] }}">← Back to asset</a><span
             class="mono text-xs font-medium uppercase tracking-[.14em] text-signal">Edit inventory record</span>
     </header>
 
@@ -22,7 +22,7 @@
         </div>
     </section>
 
-    <form class="mt-8 space-y-6" id="asset-form" method="POST" action="/assets/update/{{ $asset['tag'] }}">
+    <form class="mt-8 space-y-6" id="asset-form" method="POST" action="/assets/update/{{ $asset['id'] }}">
         @csrf
         <section class="rounded-2xl bg-white p-6 shadow-soft sm:p-7">
             <div class="border-b border-slate-100 pb-5">

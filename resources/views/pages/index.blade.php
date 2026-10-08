@@ -43,6 +43,82 @@
         </article>
     </section>
 
+    <section class="mt-8 grid gap-6 xl:grid-cols-[1.45fr_.85fr]" aria-label="Inventory analytics">
+        <article class="rounded-2xl bg-white p-6 shadow-soft">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                    <h2 class="text-lg font-extrabold">Upcoming warranty expirations</h2>
+                    <p class="mt-1 text-sm text-slate-500">Assets reaching the end of coverage in the next 6 months.</p>
+                </div><span class="rounded-full bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-600">3 expire this
+                    month</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <div><span class="inline-block h-2.5 w-2.5 rounded-sm bg-rose-400"></span><span
+                        class="ml-2 font-semibold text-slate-600">Expiring this month</span></div>
+                <div><span class="inline-block h-2.5 w-2.5 rounded-sm bg-amber"></span><span
+                        class="ml-2 font-semibold text-slate-600">Future expirations</span></div>
+            </div>
+            <div class="mt-4 overflow-x-auto"><svg class="min-w-[550px] w-full" viewBox="0 0 680 265" role="img"
+                    aria-labelledby="warrantyTitle warrantyDesc">
+                    <title id="warrantyTitle">Upcoming warranty expirations by month</title>
+                    <desc id="warrantyDesc">Three assets expire in October, followed by future expiration counts through
+                        March.</desc>
+                    <g stroke="#e2e8f0" stroke-width="1">
+                        <line x1="56" y1="42" x2="655" y2="42" />
+                        <line x1="56" y1="93" x2="655" y2="93" />
+                        <line x1="56" y1="144" x2="655" y2="144" />
+                        <line x1="56" y1="195" x2="655" y2="195" />
+                    </g>
+                    <g fill="#94a3b8" font-family="Manrope, sans-serif" font-size="12"><text x="25"
+                            y="199">0</text><text x="25" y="148">2</text><text x="25" y="97">4</text><text x="25"
+                            y="46">6</text><text x="82" y="229">Oct</text><text x="180" y="229">Nov</text><text x="278"
+                            y="229">Dec</text><text x="376" y="229">Jan</text><text x="474" y="229">Feb</text><text
+                            x="572" y="229">Mar</text></g>
+                    <g>
+                        <rect x="78" y="119" width="54" height="76" rx="8" fill="#fb7185" />
+                        <rect x="176" y="68" width="54" height="127" rx="8" fill="#D89A20" />
+                        <rect x="274" y="144" width="54" height="51" rx="8" fill="#D89A20" />
+                        <rect x="372" y="93" width="54" height="102" rx="8" fill="#D89A20" />
+                        <rect x="470" y="119" width="54" height="76" rx="8" fill="#D89A20" />
+                        <rect x="568" y="169" width="54" height="26" rx="8" fill="#D89A20" />
+                    </g>
+                    <g fill="#17212B" font-family="Manrope, sans-serif" font-size="13" font-weight="700"><text x="102"
+                            y="109">3</text><text x="200" y="58">5</text><text x="298" y="134">2</text><text x="396"
+                            y="83">4</text><text x="494" y="109">3</text><text x="592" y="159">1</text></g>
+                </svg></div>
+        </article>
+        <article class="rounded-2xl bg-white p-6 shadow-soft">
+            <div>
+                <h2 class="text-lg font-extrabold">Inventory health</h2>
+                <p class="mt-1 text-sm text-slate-500">Current distribution of your assets.</p>
+            </div>
+            <div class="mt-6 flex items-center justify-center gap-6"><svg class="h-36 w-36 -rotate-90"
+                    viewBox="0 0 120 120" role="img" aria-label="85 percent of assets are in use">
+                    <circle cx="60" cy="60" r="46" fill="none" stroke="#f1f5f9" stroke-width="13" />
+                    <circle cx="60" cy="60" r="46" fill="none" stroke="#1F9D83" stroke-dasharray="246 289"
+                        stroke-linecap="round" stroke-width="13" />
+                    <circle cx="60" cy="60" r="46" fill="none" stroke="#f59e0b" stroke-dasharray="31 289"
+                        stroke-dashoffset="-253" stroke-linecap="round" stroke-width="13" />
+                </svg>
+                <div>
+                    <p class="text-3xl font-extrabold">85<span class="text-base text-slate-400">%</span></p>
+                    <p class="mt-1 text-xs font-semibold text-slate-500">in use</p>
+                </div>
+            </div>
+            <div class="mt-7 space-y-4 text-sm">
+                <div class="flex items-center justify-between"><span
+                        class="flex items-center gap-2 font-semibold text-slate-600"><i
+                            class="h-2.5 w-2.5 rounded-full bg-signal"></i>In use</span><b>1,096</b></div>
+                <div class="flex items-center justify-between"><span
+                        class="flex items-center gap-2 font-semibold text-slate-600"><i
+                            class="h-2.5 w-2.5 rounded-full bg-amber"></i>Available</span><b>142</b></div>
+                <div class="flex items-center justify-between"><span
+                        class="flex items-center gap-2 font-semibold text-slate-600"><i
+                            class="h-2.5 w-2.5 rounded-full bg-rose-400"></i>Needs attention</span><b>17</b></div>
+            </div><a class="mt-6 block text-sm font-bold text-signal" href="it-assets.html">View asset directory →</a>
+        </article>
+    </section>
+
     <section class="mt-8 grid gap-6 xl:grid-cols-[1.4fr_.8fr]">
         <article class="rounded-2xl bg-white p-6 shadow-soft" id="assets">
             <div class="flex items-center justify-between">
