@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('position');
             $table->boolean('is_active')->default(true);
-            $table->rememberToken();
+            $table->boolean('is_admin')->default(false);
+            $table->boolean('has_asset')->default(false);
             $table->timestamps();
             $table->boolean('is_login_user')->default(false);
             $table->string('password')->nullable();

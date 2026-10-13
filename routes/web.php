@@ -4,6 +4,7 @@ use App\Models\Asset;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 // Route::get('/', function () {
 //     return view('index');
@@ -167,7 +168,34 @@ Route::post('/assets/asset/{id}/assign', function ($id) {
 
 // USERS/ PEOPLE ROUTES
 Route::get('/users', function () {
-    return view('pages.users.index');
+    $totalUsers = User::count();
+    $activeUsers = User::where('is_active', true)->count();
+
+    // Asset Data
+    $with_asset = User::where('has_asset', true)->count();
+    $with_asset_average = ($with_asset / $totalUsers) * 100;
+    $without_asset = user::where('has_asset', false)->count();
+
+
+    // Count users created in the current month
+    $newUsersThisMonth = User::whereMonth(
+        'created_at',
+        Carbon::now()->month
+    )
+        ->whereYear(
+            'created_at',
+            Carbon::now()->year
+        )
+        ->count();
+
+    return view('pages.users.index', [
+        'total_users' => $totalUsers,
+        'active_users' => $activeUsers,
+        'total_users_this_month' => $newUsersThisMonth,
+        'with_asset' => $with_asset,
+        'with_asset_average' => round($with_asset_average, 2),
+        'without_asset' => $without_asset,
+    ]);
 });
 
 Route::post('/users/create', function () {

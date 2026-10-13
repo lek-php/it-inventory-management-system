@@ -13,6 +13,8 @@ class User extends Model
 
     protected $guarded = [];
 
+    protected $primaryKey = 'employee_id';
+
     // PARENT
     public function departmentName()
     {

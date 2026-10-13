@@ -18,27 +18,29 @@
             </a>
         </div>
     </section>
-    <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <section class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <article class="rounded-2xl bg-white p-5 shadow-soft">
             <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total people</p>
-            <p class="mt-2 text-3xl font-extrabold">326</p>
-            <p class="mt-2 text-xs font-semibold text-signal">↑ 8 this month</p>
+            <p class="mt-2 text-3xl font-extrabold">{{ $total_users }}</p>
+            @if ($total_users_this_month > 0)
+            <p class="mt-2 text-xs font-semibold text-signal">↑ {{$total_users_this_month}} this month</p>
+            @endif
         </article>
         <article class="rounded-2xl bg-white p-5 shadow-soft">
             <p class="text-xs font-bold uppercase tracking-wider text-slate-400">With assets</p>
-            <p class="mt-2 text-3xl font-extrabold">313</p>
-            <p class="mt-2 text-xs text-slate-500">96% coverage</p>
+            <p class="mt-2 text-3xl font-extrabold">{{$with_asset}}</p>
+            <p class="mt-2 text-xs text-slate-500">{{$with_asset_average}}% coverage</p>
         </article>
         <article class="rounded-2xl bg-white p-5 shadow-soft">
             <p class="text-xs font-bold uppercase tracking-wider text-slate-400">No assignment</p>
-            <p class="mt-2 text-3xl font-extrabold text-amber">13</p>
+            <p class="mt-2 text-3xl font-extrabold text-amber">{{$without_asset}}</p>
             <p class="mt-2 text-xs text-slate-500">May need equipment</p>
         </article>
-        <article class="rounded-2xl bg-white p-5 shadow-soft">
+        {{-- <article class="rounded-2xl bg-white p-5 shadow-soft">
             <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Return due</p>
             <p class="mt-2 text-3xl font-extrabold text-rose-500">2</p>
             <p class="mt-2 text-xs text-slate-500">Due this week</p>
-        </article>
+        </article> --}}
     </section>
     <section class="mt-8 grid gap-6 xl:grid-cols-[1.5fr_.7fr]">
         <article class="rounded-2xl bg-white p-5 shadow-soft sm:p-6">
