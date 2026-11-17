@@ -24,7 +24,7 @@
             <p class="text-xs font-bold uppercase tracking-wider text-slate-400">
                 All assets
             </p>
-            <p class="mt-2 text-3xl font-extrabold" id="total-assets-count">{{ $AssetsCount ?? 0 }}</p>
+            <p class="mt-2 text-3xl font-extrabold" id="total-assets-count">{{ $assets_count ?? 0 }}</p>
             <p class="mt-2 text-xs text-slate-500">Across 6 categories</p>
         </article>
         <article class="rounded-2xl bg-white p-5 shadow-soft">
@@ -32,7 +32,7 @@
                 Available
             </p>
             <p class="mt-2 text-3xl font-extrabold text-signal" id="assets-available-count">{{
-                $byCategoryCount['Available'] ?? 0 }}</p>
+                $by_category_count['Available'] ?? 0 }}</p>
             <p class="mt-2 text-xs text-slate-500">Ready for allocation</p>
         </article>
         <article class="rounded-2xl bg-white p-5 shadow-soft">
@@ -40,7 +40,7 @@
                 For Maintenance
             </p>
             <p class="mt-2 text-3xl font-extrabold text-amber" id="assets-for_maintenance-count">{{
-                $byCategoryCount['For maintenance'] ?? 0 }}</p>
+                $by_category_count['For maintenance'] ?? 0 }}</p>
             <p class="mt-2 text-xs text-slate-500">Awaiting for maintenance</p>
         </article>
     </section>

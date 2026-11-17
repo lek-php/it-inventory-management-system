@@ -4,11 +4,13 @@ use App\Models\Asset;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Carbon\Carbon;
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssetController;
+
+
+
+
 
 //API Routes
 Route::get('/api/assets/all', function () {
@@ -36,12 +38,7 @@ Route::get('/', function () {
 });
 
 // ASSETS ROUTES
-Route::get('/assets', function () {
-    $byCategoryCount = Asset::select('status')->get()->groupBy('status')->map->count();
-    $AssetsCount = Asset::count();
-
-    return view('pages.assets.index', compact('byCategoryCount', 'AssetsCount'));
-});
+Route::get('/assets', [AssetController::class, 'show'])->name('pages.assets.index');
 
 Route::post('/assets/create', function () {
 
@@ -164,74 +161,7 @@ Route::post('/assets/asset/{id}/assign', function ($id) {
 
 
 
-
-
-// USERS/ PEOPLE ROUTES
-Route::get('/users', function () {
-    $totalUsers = User::count();
-    $activeUsers = User::where('is_active', true)->count();
-
-    // Asset Data
-    $with_asset = User::where('has_asset', true)->count();
-    $with_asset_average = ($with_asset / $totalUsers) * 100;
-    $without_asset = user::where('has_asset', false)->count();
-
-
-    // Count users created in the current month
-    $newUsersThisMonth = User::whereMonth(
-        'created_at',
-        Carbon::now()->month
-    )
-        ->whereYear(
-            'created_at',
-            Carbon::now()->year
-        )
-        ->count();
-
-    return view('pages.users.index', [
-        'total_users' => $totalUsers,
-        'active_users' => $activeUsers,
-        'total_users_this_month' => $newUsersThisMonth,
-        'with_asset' => $with_asset,
-        'with_asset_average' => round($with_asset_average, 2),
-        'without_asset' => $without_asset,
-    ]);
-});
-
-Route::post('/users/create', function () {
-
-    $rules = [
-        'employee_id' => 'required',
-        'name' => 'required',
-        'department' => 'required',
-        'phone' => [
-            'regex:/^(09\d{9}|\+639\d{9})$/',
-        ],
-        'email' => 'required|email',
-        'position' => 'required',
-    ];
-
-    if (request()->boolean('is_login_user')) {
-        $rules['password'] = 'required|min:8';
-    }
-
-    request()->validate($rules);
-
-    // Create user here...
-    User::create([
-        'employee_id' => request('employee_id'),
-        'name' => request('name'),
-        'department_id' => request('department'),
-        'phone' => request('phone'),
-        'email' => request('email'),
-        'position' => request('position'),
-        'password' => request('password'),
-    ]);
-
-    return redirect('/users/create')
-        ->with('success', 'User added successfully!');
-});
-
-Route::get('users/create', function () {
-    return view('pages.users.create');
-});
+// USERS ROUTES
+Route::get('/users', [UserController::class, 'show'])->name('pages.users.index');
+Route::post('/users/create', [UserController::class, 'insert'])->name('pages.users.create');
+Route::get('/users/create', [UserController::class, 'create'])->name('pages.users.create');

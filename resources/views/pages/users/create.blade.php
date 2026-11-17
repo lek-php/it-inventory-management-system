@@ -69,8 +69,7 @@
                             Phone
                             <input
                                 class="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 font-normal outline-none placeholder:text-slate-400 focus:border-signal"
-                                name="phone" type="tel" placeholder="e.g. +63 917 123 4567"
-                                value="{{ old('phone') ?? '' }}">
+                                name="phone" type="tel" placeholder="e.g. 09171234567" value="{{ old('phone') ?? '' }}">
                         </label>
 
                         @error('phone')
