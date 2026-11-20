@@ -31,7 +31,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => 'C02ZK0XQMD6L',
                     'vendor' => 'Apple Store',
                     'status' => 'Assigned',
-                    'assigned_to' => 'EMP-21779',
+                    'assigned_to' => '1',
                     'location' => 'Admin Office',
                     'purchase_date' => '2024-01-15',
                     'warranty_expiration' => '2027-01-15',
@@ -46,7 +46,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => '45017894H',
                     'vendor' => 'AMTI',
                     'status' => 'Assigned',
-                    'assigned_to' => 'EMP-21779',
+                    'assigned_to' => '2',
                     'location' => 'Admin Office',
                     'purchase_date' => '2025-08-14',
                     'warranty_expiration' => '2028-08-14',
@@ -61,7 +61,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => 'DL7010X92841',
                     'vendor' => 'Dell Technologies',
                     'status' => 'Assigned',
-                    'assigned_to' => 'EMP-00003',
+                    'assigned_to' => '3',
                     'location' => 'Finance Office',
                     'purchase_date' => '2026-03-10',
                     'warranty_expiration' => '2029-03-10',
@@ -91,7 +91,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => 'MONU2422H73921',
                     'vendor' => 'Dell Technologies',
                     'status' => 'Assigned',
-                    'assigned_to' => 'EMP-00003',
+                    'assigned_to' => '4',
                     'location' => 'Finance Office',
                     'purchase_date' => '2024-03-10',
                     'warranty_expiration' => '2027-03-10',
@@ -121,7 +121,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => 'LOGMX3S552891',
                     'vendor' => 'Logitech',
                     'status' => 'Assigned',
-                    'assigned_to' => 'EMP-00002',
+                    'assigned_to' => '5',
                     'location' => 'HR Office',
                     'purchase_date' => '2024-02-05',
                     'warranty_expiration' => '2027-02-05',
@@ -136,7 +136,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => 'SONYXM5A98231',
                     'vendor' => 'Sony Center',
                     'status' => 'Assigned',
-                    'assigned_to' => 'EMP-00012',
+                    'assigned_to' => '1',
                     'location' => 'HR Office',
                     'purchase_date' => '2024-02-20',
                     'warranty_expiration' => '2026-02-20',
@@ -166,7 +166,7 @@ class AssetSeeder extends Seeder
                     'serial_number' => 'LNV014T492831',
                     'vendor' => 'AMTI',
                     'status' => 'For maintenance',
-                    'assigned_to' => 'EMP-00010',
+                    'assigned_to' => '2',
                     'location' => 'IT Office',
                     'purchase_date' => '2024-04-18',
                     'warranty_expiration' => '2027-04-18',
@@ -178,7 +178,7 @@ class AssetSeeder extends Seeder
                 Asset::create($asset);
 
                 if (!empty($asset['assigned_to'])) {
-                    $user = User::where('employee_id', $asset['assigned_to'])->firstOrFail();
+                    $user = User::where('id', $asset['assigned_to'])->firstOrFail();
 
                     $user->update(['has_asset' => true]);
                 }

@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
-    public function show()
+    public function index()
     {
         Asset::all();
         $total_users = Asset::count();

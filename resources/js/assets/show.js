@@ -124,9 +124,11 @@ if (warrantyProgress && warrantyProgressBar) {
 
 const assignUserBtn = document.getElementById('assign-user-btn');
 const assetModal = document.getElementById('assetModal');
-assignUserBtn.addEventListener('click', function () {
-    assetModal.classList.remove('hidden');
-});
+if (assignUserBtn) {
+    assignUserBtn.addEventListener('click', function () {
+        assetModal.classList.remove('hidden');
+    });
+}
 
 const closeAssignAssetModalButtons = document.querySelectorAll('.closeAssignAssetModal');
 closeAssignAssetModalButtons.forEach(button => {
@@ -144,9 +146,14 @@ const users = await (await fetch('/api/users/all')).json();
 users.forEach(user => {
     const option = document.createElement('option');
 
-    option.value = user.employee_id;
+    option.value = user.id;
     option.textContent = user.name;
 
     assignedTo.appendChild(option);
+});
+
+const transferAssetBtn = document.getElementById('transfer-asset-btn');
+transferAssetBtn.addEventListener('click', function () {
+    console.log('clicked');
 });
 

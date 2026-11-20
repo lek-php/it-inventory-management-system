@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('serial_number')->unique()->nullable();
             $table->string('vendor')->nullable();
             $table->enum('status', ['Available', 'Assigned', 'In repair', 'For maintenance', 'Not good', 'For disposal', 'Disposed'])->default('Available');
-            $table->string('assigned_to')->nullable();
+            $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
             $table->string('location')->nullable();
             $table->json('previous_user')->nullable();
             $table->date('purchase_date')->nullable();

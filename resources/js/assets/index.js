@@ -64,7 +64,7 @@ function render() {
                     <td class="py-4">
                         <b class="block">${a.assigned_user ? a.assigned_user.name : ''}</b>
                         <span class="mono text-xs text-slate-400">
-                            ${a.assigned_to ?? 'Unassigned'}
+                            ${a.assigned_user ? a.assigned_user.employee_id : 'Unassigned'}
                         </span>
                     </td>
 

@@ -14,6 +14,6 @@ class asset extends Model
 
     public function assignedUser()
     {
-        return $this->belongsTo(User::class, 'assigned_to', 'employee_id');
+        return $this->belongsTo(User::class, 'assigned_to', 'id');
     }
 }

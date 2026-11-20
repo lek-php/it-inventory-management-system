@@ -1,5 +1,4 @@
 <x-layouts.app>
-
     @if (session('success'))
     <x-partials.toaster>{{ session('success') }}</x-partials.toaster>
     @endif
@@ -158,21 +157,31 @@
             </article>
             <article class=" rounded-2xl bg-white p-6 shadow-soft">
                 <h2 class="text-lg font-extrabold">Quick actions</h2>
-                <div class="mt-5 grid gap-3"><button
+                <div class="mt-5 grid gap-3">
+                    <button id="transfer-asset-btn"
+                        class="rounded-xl border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-700 cursor-pointer hover:bg-signal hover:text-white transition"
+                        type="button">
+                        ↔ Transfer to another user
+                    </button>
+                    <button
                         class="rounded-xl border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-700 hover:bg-slate-50"
-                        type="button">↔ Transfer to another user</button><button
-                        class="rounded-xl border border-slate-200 px-4 py-3 text-left text-sm font-bold text-slate-700 hover:bg-slate-50"
-                        type="button">◫ Download asset record</button><button
+                        type="button">
+                        ◫ Download asset record
+                    </button>
+                    <button
                         class="rounded-xl border border-rose-100 px-4 py-3 text-left text-sm font-bold text-rose-600 hover:bg-rose-50"
-                        type="button">Retire asset</button></div>
+                        type="button">
+                        Retire asset
+                    </button>
+                </div>
             </article>
         </aside>
     </section>
 
     <!-- Parent / Overlay -->
-    <div id="assetModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4"
-        role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+    <div id="assetModal" class="hidden fixed w-full inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4"
+        role="dialog" aria-modal="true" aria-labelledby="assetModal">
+        <div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
 
             <!-- Header -->
             <div class="flex items-start justify-between">
@@ -210,85 +219,129 @@
             </div>
 
             <!-- User Selection -->
-            <form class="mt-5" method="POST" action="/assets/asset/{{ $asset['id'] }}/assign">
+            <form class="mt-2" method="POST" action="/assets/asset/{{ $asset['id'] }}/assign">
                 @csrf
-                <div class="space-y-2">
-                    <input type="hidden" name="id" value="{{ $asset['id'] }}">
-                    <label class="block text-sm font-bold">
-                        Assign to
-                        <select name="assigned_to" id="users"
-                            class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
-                            <option value="">Unassigned</option>
-                        </select>
-                    </label>
+                <div class="">
+                    <section class="space-y-2">
+                        <input type="hidden" name="id" value="{{ $asset['id'] }}">
+                        <label class="block text-sm font-bold">
+                            Assign to
+                            <select name="assigned_to" id="users"
+                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
+                                <option value="">Unassigned</option>
+                            </select>
+                        </label>
 
-                    <label class="block text-sm font-bold">
-                        Location
-                        <select name="location"
-                            class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
-                            <option value="">Select a location</option>
-                            <option value="Admin Office"
-                                value="{{ old('location') === 'Admin Office' ? 'selected' : '' }}">
-                                Admin Office
-                            </option>
-                            <option value="Clinic" value="{{ old('location') === 'Clinic' ? 'selected' : '' }}">
-                                Clinic
-                            </option>
-                            <option value="Operation Office"
-                                value="{{ old('location') === 'Operation Office' ? 'selected' : '' }}">
-                                Operation Office
-                            </option>
-                            <option value="IPQC" value="{{ old('location') === 'IPQC' ? 'selected' : '' }}">
-                                IPQC
-                            </option>
-                            <option value="Diecast Area"
-                                value="{{ old('location') === 'Diecast Area' ? 'selected' : '' }}">
-                                Diecast Area
-                            </option>
-                            <option value="Deburring Area"
-                                value="{{ old('location') === 'Deburring Area' ? 'selected' : '' }}">
-                                Deburring Area
-                            </option>
-                            <option value="Machining Area"
-                                value="{{ old('location') === 'Machining Area' ? 'selected' : '' }}">
-                                Machining Area
-                            </option>
-                            <option value="Washing Area"
-                                value="{{ old('location') === 'Washing Area' ? 'selected' : '' }}">
-                                Washing Area
-                            </option>
-                            <option value="FVI Area" value="{{ old('location') === 'FVI Area' ? 'selected' : '' }}">
-                                FVI Area
-                            </option>
-                            <option value="Flatness & Vibration Area"
-                                value="{{ old('location') === 'Flatness & Vibration Area' ? 'selected' : '' }}">
-                                Flatness & vibration Area
-                            </option>
-                            <option value="OQI Area" value="{{ old('location') === 'OQI Area' ? 'selected' : '' }}">
-                                OQI Area
-                            </option>
-                            <option value="Warehouse" value="{{ old('location') === 'Warehouse' ? 'selected' : '' }}">
-                                Warehouse
-                            </option>
-                            <option value="Warehouse 3rd Floor"
-                                value="{{ old('location') === 'Warehouse 3rd Floor' ? 'selected' : '' }}">
-                                Warehouse 3rd Floor
-                            </option>
-                            <option value="Guard House"
-                                value="{{ old('location') === 'Guard House' ? 'selected' : '' }}">Guard House
-                            </option>
-                            <option value="Canteen" value="{{ old('location') === 'Canteen' ? 'selected' : '' }}">
-                                Canteen
-                            </option>
-                        </select>
-                    </label>
+                        <label class="block text-sm font-bold">
+                            Location
+                            <select name="location"
+                                class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-normal outline-none focus:border-signal">
+                                <option value="">Select a location</option>
+                                <option value="Admin Office"
+                                    value="{{ old('location') === 'Admin Office' ? 'selected' : '' }}">
+                                    Admin Office
+                                </option>
+                                <option value="Clinic" value="{{ old('location') === 'Clinic' ? 'selected' : '' }}">
+                                    Clinic
+                                </option>
+                                <option value="Operation Office"
+                                    value="{{ old('location') === 'Operation Office' ? 'selected' : '' }}">
+                                    Operation Office
+                                </option>
+                                <option value="IPQC" value="{{ old('location') === 'IPQC' ? 'selected' : '' }}">
+                                    IPQC
+                                </option>
+                                <option value="Diecast Area"
+                                    value="{{ old('location') === 'Diecast Area' ? 'selected' : '' }}">
+                                    Diecast Area
+                                </option>
+                                <option value="Deburring Area"
+                                    value="{{ old('location') === 'Deburring Area' ? 'selected' : '' }}">
+                                    Deburring Area
+                                </option>
+                                <option value="Machining Area"
+                                    value="{{ old('location') === 'Machining Area' ? 'selected' : '' }}">
+                                    Machining Area
+                                </option>
+                                <option value="Washing Area"
+                                    value="{{ old('location') === 'Washing Area' ? 'selected' : '' }}">
+                                    Washing Area
+                                </option>
+                                <option value="FVI Area" value="{{ old('location') === 'FVI Area' ? 'selected' : '' }}">
+                                    FVI Area
+                                </option>
+                                <option value="Flatness & Vibration Area"
+                                    value="{{ old('location') === 'Flatness & Vibration Area' ? 'selected' : '' }}">
+                                    Flatness & vibration Area
+                                </option>
+                                <option value="OQI Area" value="{{ old('location') === 'OQI Area' ? 'selected' : '' }}">
+                                    OQI Area
+                                </option>
+                                <option value="Warehouse"
+                                    value="{{ old('location') === 'Warehouse' ? 'selected' : '' }}">
+                                    Warehouse
+                                </option>
+                                <option value="Warehouse 3rd Floor"
+                                    value="{{ old('location') === 'Warehouse 3rd Floor' ? 'selected' : '' }}">
+                                    Warehouse 3rd Floor
+                                </option>
+                                <option value="Guard House"
+                                    value="{{ old('location') === 'Guard House' ? 'selected' : '' }}">Guard House
+                                </option>
+                                <option value="Canteen" value="{{ old('location') === 'Canteen' ? 'selected' : '' }}">
+                                    Canteen
+                                </option>
+                            </select>
+                        </label>
+                    </section>
 
-                    @error('assigned_to')
-                    <p class="text-sm text-red-500">
-                        {{ $message }}
-                    </p>
-                    @enderror
+                    <section class="mt-4 space-y-4">
+                        <label
+                            class="flex cursor-pointer items-center justify-between gap-5 rounded-xl border border-slate-200 p-4">
+                            <span>
+                                <b class="block text-sm">Network</b>
+                                <span class="mt-1 block text-sm text-slate-500">
+                                    Network access and connectivity for this asset.
+                                </span>
+                            </span>
+
+                            <span class="relative inline-flex items-center">
+                                <input class="peer sr-only" name="has_network" type="checkbox" value="1" checked>
+                                <span
+                                    class="h-6 w-11 rounded-full bg-slate-200 transition peer-checked:bg-signal"></span>
+                                <span
+                                    class="absolute left-1 h-4 w-4 rounded-full bg-white transition peer-checked:translate-x-5"></span>
+                            </span>
+                        </label>
+
+                        <label
+                            class="flex cursor-pointer items-center justify-between gap-5 rounded-xl border border-slate-200 p-4">
+                            <span>
+                                <b class="block text-sm">Anti Virus</b>
+                                <span class="mt-1 block text-sm text-slate-500">
+                                    Antivirus protection and security monitoring for this asset.
+                                </span>
+                            </span>
+
+                            <span class="relative inline-flex items-center">
+                                <input class="peer sr-only" id="hasAntiVirus" name="has_anti_virus" type="checkbox"
+                                    value="1">
+                                <span
+                                    class="h-6 w-11 rounded-full bg-slate-200 transition peer-checked:bg-signal"></span>
+                                <span
+                                    class="absolute left-1 h-4 w-4 rounded-full bg-white transition peer-checked:translate-x-5"></span>
+                            </span>
+                        </label>
+                    </section>
                 </div>
+
+
+                @error('assigned_to')
+                <p class="text-sm text-red-500">
+                    {{ $message }}
+                </p>
+                @enderror
+
 
                 <!-- Footer -->
                 <div class="mt-6 flex justify-end gap-3">
